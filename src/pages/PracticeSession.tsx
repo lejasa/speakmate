@@ -5,17 +5,19 @@ import '../styles/practice-setup.css';
 export default function PracticeSession() {
   const navigate = useNavigate();
 
-  const { script, mode, difficulty } = usePracticeStore((state) => ({
-    script: state.script,
-    mode: state.mode,
-    difficulty: state.difficulty,
-  }));
+  const script = usePracticeStore((state) => state.script);
+  const mode = usePracticeStore((state) => state.mode);
+  const difficulty = usePracticeStore((state) => state.difficulty);
 
   if (!script || script.length === 0) {
     return (
       <div className="setup-container">
         <h1>Practice Session</h1>
-        <p>No script found. Please generate a practice session first.</p>
+
+        <p>
+          No script found. Please generate a practice session first.
+        </p>
+
         <button
           type="button"
           className="generate-btn"
@@ -33,26 +35,36 @@ export default function PracticeSession() {
 
       <div className="section">
         <h2>Session Summary</h2>
+
         <div className="card-grid">
           <div className="option-card">
             <strong>Mode</strong>
-            <p>{mode || 'Not selected'}</p>
+            <p>{mode}</p>
           </div>
+
           <div className="option-card">
             <strong>Difficulty</strong>
-            <p>{difficulty || 'Not selected'}</p>
+            <p>{difficulty}</p>
           </div>
         </div>
       </div>
 
       <div className="section">
         <h2>Script</h2>
+
         <div className="card-grid">
           {script.map((line) => (
-            <div key={line.id} className="option-card">
-              <p className="script-speaker">{line.speaker}</p>
+            <div
+              key={line.id}
+              className="option-card"
+            >
+              <p>
+                <strong>{line.speaker}</strong>
+              </p>
+
               <p>{line.english}</p>
-              <p className="script-korean">{line.korean}</p>
+
+              <p>{line.korean}</p>
             </div>
           ))}
         </div>

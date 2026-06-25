@@ -1,0 +1,92 @@
+.session-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.progress-section {
+  margin-bottom: 24px;
+}
+
+.progress-header {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 999px;
+  transition: 0.3s;
+}
+
+.script-card {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.speaker-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #2563eb;
+  color: white;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.english {
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.korean {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-row button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.score-box {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.navigation-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.navigation-row button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navigation-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
