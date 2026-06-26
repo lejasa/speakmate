@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePracticeStore } from '../store/practiceStore';
 import '../styles/session.css';
@@ -8,6 +9,15 @@ export default function PracticeSession() {
   const script = usePracticeStore((state) => state.script);
   const mode = usePracticeStore((state) => state.mode);
   const difficulty = usePracticeStore((state) => state.difficulty);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const selectedLine = useMemo(() => {
+    if (!script || script.length === 0) {
+      return null;
+    }
+
+    return script[Math.min(activeIndex, script.length - 1)];
+  }, [activeIndex, script]);
 
   if (!script || script.length === 0) {
     return (
@@ -40,57 +50,45 @@ export default function PracticeSession() {
           </div>
         </div>
 
-        <div className="session-actions">
-          <button type="button" className="button button-secondary">
-            Listen
-          </button>
-          <button type="button" className="button">
-            Record
-          </button>
+        <div className="session-meta">
+          <span>{mode || 'Role Play'} • {difficulty || 'Intermediate'}</span>
         </div>
 
-        <div className="progress-card">
-          <div className="progress-labels">
-            <span>Progress</span>
-            <span>1 / 5</span>
+        <div className="script-card">
+          <div className="script-nav">
+            {script.map((line, index) => (
+              <button
+                key={line.id}
+                type="button"
+                className={`script-step ${activeIndex === index ? 'active' : ''}`}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show sentence ${index + 1}`}
+              >
+                {index + 1}
+              </button>
+            ))}
           </div>
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: '20%' }} />
-          </div>
-        </div>
-      </section>
 
-      <section className="page-card">
-        <div className="summary-grid">
-          <div className="summary-item">
-            <span>Mode</span>
-            <strong>{mode}</strong>
-          </div>
-          <div className="summary-item">
-            <span>Difficulty</span>
-            <strong>{difficulty}</strong>
-          </div>
-        </div>
-      </section>
-
-      <section className="page-card">
-        <div className="section-header">
-          <div>
-            <h2>Script</h2>
-            <p>Ready for your turn.</p>
-          </div>
-        </div>
-
-        <div className="script-list">
-          {script.map((line) => (
-            <div key={line.id} className="script-item">
-              <p className="speaker">{line.speaker}</p>
-              <p>{line.english}</p>
-              <p>{line.korean}</p>
+          {selectedLine && (
+            <div className="script-content">
+              <p className="speaker">{selectedLine.speaker}</p>
+              <p className="script-text">{selectedLine.english}</p>
+              <p className="script-translation">{selectedLine.korean}</p>
             </div>
-          ))}
+          )}
         </div>
       </section>
+
+      <div className="session-bottom-spacer" />
+
+      <div className="session-action-bar" aria-label="Practice controls">
+        <button type="button" className="control-button listen" title="Listen" aria-label="Listen">
+          ▶
+        </button>
+        <button type="button" className="control-button record" title="Record" aria-label="Record">
+          ●
+        </button>
+      </div>
     </div>
   );
 }

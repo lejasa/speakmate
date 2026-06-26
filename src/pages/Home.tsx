@@ -18,7 +18,7 @@ export default function Home() {
               className="button"
               onClick={() => navigate('/setup')}
             >
-              Start Speaking
+              START
             </button>
           </div>
         </div>

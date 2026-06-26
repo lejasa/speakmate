@@ -49,15 +49,6 @@ export default function PracticeSetup() {
     return true;
   };
 
-  const estimatedTime =
-    difficulty === 'Beginner'
-      ? '30 sec'
-      : difficulty === 'Intermediate'
-        ? '45 sec'
-        : difficulty === 'Advanced'
-          ? '60–90 sec'
-          : '—';
-
   const handleGenerate = () => {
     if (!canGenerate()) {
       alert('Please complete all required selections.');
@@ -122,16 +113,27 @@ export default function PracticeSetup() {
       <h2>{title}</h2>
 
       <div className="option-grid">
-        {options.map((option) => (
-          <button
-            type="button"
-            key={option}
-            className={`option-card ${selected === option ? 'selected' : ''}`}
-            onClick={() => setSelected(option)}
-          >
-            {option}
-          </button>
-        ))}
+        {options.map((option) => {
+          const timeLabel =
+            option === 'Beginner'
+              ? ' (30 sec)'
+              : option === 'Intermediate'
+                ? ' (45 sec)'
+                : option === 'Advanced'
+                  ? ' (60–90 sec)'
+                  : '';
+
+          return (
+            <button
+              type="button"
+              key={option}
+              className={`option-card ${selected === option ? 'selected' : ''}`}
+              onClick={() => setSelected(option)}
+            >
+              {title === 'Difficulty' ? `${option}${timeLabel}` : option}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -170,28 +172,6 @@ export default function PracticeSetup() {
           {renderOptionGroup('Difficulty', DIFFICULTIES, difficulty, setDifficulty)}
         </div>
 
-        <div className="time-card">
-          <div className="section-header">
-            <h2>Estimated speaking time</h2>
-            <span className="muted">{estimatedTime}</span>
-          </div>
-
-          <div className="time-list">
-            <div className="time-pill">
-              <span>Beginner</span>
-              <strong>30 sec</strong>
-            </div>
-            <div className="time-pill">
-              <span>Intermediate</span>
-              <strong>45 sec</strong>
-            </div>
-            <div className="time-pill">
-              <span>Advanced</span>
-              <strong>60–90 sec</strong>
-            </div>
-          </div>
-        </div>
-
         <div className="setup-actions">
           <button
             type="button"
@@ -199,7 +179,7 @@ export default function PracticeSetup() {
             onClick={handleGenerate}
             disabled={!canGenerate()}
           >
-            Generate Practice
+            GENERATE
           </button>
         </div>
       </section>
