@@ -79,8 +79,6 @@ export default function PracticeSession() {
         </div>
       </section>
 
-      <div className="session-bottom-spacer" />
-
       <div className="session-action-bar" aria-label="Practice controls">
         <button type="button" className="control-button listen" title="Listen" aria-label="Listen">
           ▶
