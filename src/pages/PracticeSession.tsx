@@ -83,8 +83,8 @@ export default function PracticeSession() {
         <button type="button" className="control-button listen" title="Listen" aria-label="Listen">
           ▶
         </button>
-        <button type="button" className="control-button record" title="Record" aria-label="Record">
-          ●
+        <button type="button" className="record-button" title="Record" aria-label="Record">
+          <div className="record-dot" />
         </button>
       </div>
     </div>
