@@ -22,13 +22,8 @@ import '../styles/practice-setup.css';
 export default function PracticeSetup() {
   const navigate = useNavigate();
 
-  const setPractice = usePracticeStore(
-    (state) => state.setPractice
-  );
-
-  const setScript = usePracticeStore(
-    (state) => state.setScript
-  );
+  const setPractice = usePracticeStore((state) => state.setPractice);
+  const setScript = usePracticeStore((state) => state.setScript);
 
   const [mode, setMode] = useState('');
   const [topic, setTopic] = useState('');
@@ -38,14 +33,34 @@ export default function PracticeSetup() {
   const [situation, setSituation] = useState('');
   const [difficulty, setDifficulty] = useState('');
 
-  const handleGenerate = () => {
-    if (!mode) {
-      alert('Learning Mode를 선택해주세요.');
-      return;
+  const canGenerate = () => {
+    if (!mode || !difficulty) {
+      return false;
     }
 
-    if (!difficulty) {
-      alert('Difficulty를 선택해주세요.');
+    if (mode === 'Situation Description') {
+      return Boolean(topic && place && person && mood);
+    }
+
+    if (mode === 'Role Play') {
+      return Boolean(place && person && situation);
+    }
+
+    return true;
+  };
+
+  const estimatedTime =
+    difficulty === 'Beginner'
+      ? '30 sec'
+      : difficulty === 'Intermediate'
+        ? '45 sec'
+        : difficulty === 'Advanced'
+          ? '60–90 sec'
+          : '—';
+
+  const handleGenerate = () => {
+    if (!canGenerate()) {
+      alert('Please complete all required selections.');
       return;
     }
 
@@ -103,17 +118,15 @@ export default function PracticeSetup() {
     selected: string,
     setSelected: (value: string) => void
   ) => (
-    <div className="section">
+    <div className="field-group">
       <h2>{title}</h2>
 
-      <div className="card-grid">
+      <div className="option-grid">
         {options.map((option) => (
           <button
             type="button"
             key={option}
-            className={`option-card ${
-              selected === option ? 'selected' : ''
-            }`}
+            className={`option-card ${selected === option ? 'selected' : ''}`}
             onClick={() => setSelected(option)}
           >
             {option}
@@ -124,88 +137,72 @@ export default function PracticeSetup() {
   );
 
   return (
-    <div className="setup-container">
-      <h1>Create Practice</h1>
+    <div className="page-shell setup-page">
+      <section className="page-card">
+        <div className="section-header">
+          <div>
+            <span className="eyebrow">Build your practice</span>
+            <h1 className="page-title">Speak</h1>
+            <p className="page-subtitle">Pick a mode, set the scene, and start speaking.</p>
+          </div>
+        </div>
 
-      {renderOptionGroup(
-        'Learning Mode',
-        LEARNING_MODES,
-        mode,
-        setMode
-      )}
+        <div className="selection-stack">
+          {renderOptionGroup('Learning Mode', LEARNING_MODES, mode, setMode)}
 
-      {mode === 'Situation Description' && (
-        <>
-          {renderOptionGroup(
-            'Topic',
-            TOPICS,
-            topic,
-            setTopic
+          {mode === 'Situation Description' && (
+            <>
+              {renderOptionGroup('Topic', TOPICS, topic, setTopic)}
+              {renderOptionGroup('Where?', DESCRIPTION_PLACES, place, setPlace)}
+              {renderOptionGroup('Who?', DESCRIPTION_PEOPLE, person, setPerson)}
+              {renderOptionGroup('Mood', MOODS, mood, setMood)}
+            </>
           )}
 
-          {renderOptionGroup(
-            'Where?',
-            DESCRIPTION_PLACES,
-            place,
-            setPlace
+          {mode === 'Role Play' && (
+            <>
+              {renderOptionGroup('Where?', ROLE_PLAY_PLACES, place, setPlace)}
+              {renderOptionGroup('Who?', ROLE_PLAY_PEOPLE, person, setPerson)}
+              {renderOptionGroup('Situation', ROLE_PLAY_SITUATIONS, situation, setSituation)}
+            </>
           )}
 
-          {renderOptionGroup(
-            'Who?',
-            DESCRIPTION_PEOPLE,
-            person,
-            setPerson
-          )}
+          {renderOptionGroup('Difficulty', DIFFICULTIES, difficulty, setDifficulty)}
+        </div>
 
-          {renderOptionGroup(
-            'Mood',
-            MOODS,
-            mood,
-            setMood
-          )}
-        </>
-      )}
+        <div className="time-card">
+          <div className="section-header">
+            <h2>Estimated speaking time</h2>
+            <span className="muted">{estimatedTime}</span>
+          </div>
 
-      {mode !== 'Situation Description' &&
-        mode !== '' && (
-          <>
-            {renderOptionGroup(
-              'Where?',
-              ROLE_PLAY_PLACES,
-              place,
-              setPlace
-            )}
+          <div className="time-list">
+            <div className="time-pill">
+              <span>Beginner</span>
+              <strong>30 sec</strong>
+            </div>
+            <div className="time-pill">
+              <span>Intermediate</span>
+              <strong>45 sec</strong>
+            </div>
+            <div className="time-pill">
+              <span>Advanced</span>
+              <strong>60–90 sec</strong>
+            </div>
+          </div>
+        </div>
 
-            {renderOptionGroup(
-              'Who?',
-              ROLE_PLAY_PEOPLE,
-              person,
-              setPerson
-            )}
-
-            {renderOptionGroup(
-              'Situation',
-              ROLE_PLAY_SITUATIONS,
-              situation,
-              setSituation
-            )}
-          </>
-        )}
-
-      {renderOptionGroup(
-        'Difficulty',
-        DIFFICULTIES,
-        difficulty,
-        setDifficulty
-      )}
-
-      <button
-        type="button"
-        className="generate-btn"
-        onClick={handleGenerate}
-      >
-        Generate Practice
-      </button>
+        <div className="setup-actions">
+          <button
+            type="button"
+            className="button"
+            onClick={handleGenerate}
+            disabled={!canGenerate()}
+          >
+            Generate Practice
+          </button>
+        </div>
+      </section>
     </div>
   );
 }

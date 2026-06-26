@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import RootLayout from '../components/layout/RootLayout';
+import History from '../pages/History';
 import Home from '../pages/Home';
 import PracticeSetup from '../pages/PracticeSetup';
 import PracticeSession from '../pages/PracticeSession';
@@ -10,6 +11,7 @@ const AppRoutes = () => (
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="setup" element={<PracticeSetup />} />
+      <Route path="history" element={<History />} />
       <Route path="session" element={<PracticeSession />} />
       <Route path="result" element={<Result />} />
       <Route path="*" element={<Navigate to="/" replace />} />

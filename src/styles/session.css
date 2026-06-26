@@ -1,92 +1,95 @@
-.session-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
+.session-page {
+  gap: 1rem;
 }
 
-.progress-section {
-  margin-bottom: 24px;
+.session-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.progress-header {
-  margin-bottom: 8px;
-  font-weight: 600;
+.session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.progress-card {
+  background: #fafafa;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  color: #787878;
+  font-size: 0.95rem;
 }
 
 .progress-bar {
   width: 100%;
-  height: 12px;
-  background: #e2e8f0;
+  height: 0.6rem;
   border-radius: 999px;
+  background: #ececec;
+  overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #2563eb;
-  border-radius: 999px;
-  transition: 0.3s;
+  border-radius: inherit;
+  background: #111111;
 }
 
-.script-card {
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
-.speaker-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  background: #2563eb;
-  color: white;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.english {
-  margin-bottom: 16px;
-  line-height: 1.7;
-}
-
-.korean {
-  color: #64748b;
-  margin-bottom: 20px;
-}
-
-.action-row {
+.summary-item {
+  background: #fafafa;
+  border: 1px solid #eaeaea;
+  border-radius: 14px;
+  padding: 0.9rem;
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.action-row button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+.summary-item span {
+  color: #787878;
+  font-size: 0.9rem;
 }
 
-.score-box {
-  margin-top: 24px;
-  padding: 16px;
-  background: #f8fafc;
-  border-radius: 12px;
-}
-
-.navigation-row {
+.script-list {
   display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.navigation-row button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+.script-item {
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  background: #fafafa;
+  border: 1px solid #eaeaea;
 }
 
-.navigation-row button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.script-item p + p {
+  margin-top: 0.25rem;
+}
+
+.speaker {
+  font-weight: 700;
+  color: #111111;
+}
+
+@media (max-width: 600px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
 }
