@@ -55,6 +55,53 @@
   font-size: 1.1rem;
 }
 
+/* 버튼 스타일 */
+.button-secondary {
+  background: transparent;
+  border: 2px solid #191919;
+  color: #191919;
+}
+
+.button-secondary:hover {
+  background: #191919;
+  color: #ffffff;
+}
+
+.button-block {
+  width: 100%;
+}
+
+/* OPIc 프리뷰 */
+.opic-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.preview-icon {
+  font-size: 2rem;
+  display: block;
+}
+
+.preview-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #191919;
+  line-height: 1.4;
+}
+
 @media (min-width: 768px) {
   .hero-card {
     grid-template-columns: 1.2fr 0.8fr;
@@ -62,3 +109,4 @@
     padding: 1.5rem;
   }
 }
+

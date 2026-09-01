@@ -41,6 +41,12 @@
   border: 1px solid #eaeaea;
   color: #191919;
   font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.script-step:hover {
+  border-color: #191919;
 }
 
 .script-step.active {
@@ -63,21 +69,78 @@
 
 .script-translation {
   color: #787878;
+  font-size: 0.95rem;
 }
 
 .speaker {
   font-weight: 700;
   color: #111111;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.recording-indicator {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  color: #2e7d32;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* 플레이 모드 토글 */
+.play-mode-toggle {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f5f5f5;
+  border-radius: 12px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #787878;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  border-color: #191919;
+  color: #191919;
+}
+
+.toggle-btn.active {
+  background: #191919;
+  color: #ffffff;
+  border-color: #191919;
+}
+
+/* 컨트롤 버튼 그룹 */
+.control-group {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  padding: 0.75rem 0;
 }
 
 .session-action-bar {
   position: fixed;
   left: 50%;
-  bottom: calc(4.8rem + env(safe-area-inset-bottom));
+  bottom: calc(2rem + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   display: flex;
-  gap: 0.85rem;
+  gap: 0.75rem;
   z-index: 25;
+  align-items: center;
 }
 
 .control-button {
@@ -88,17 +151,57 @@
   place-items: center;
   box-shadow: 0 10px 24px rgba(17, 17, 17, 0.12);
   font-size: 1.15rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .control-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.16);
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.16);
 }
 
 .control-button.listen {
   background: #ffffff;
   color: #191919;
+}
+
+.control-button.listen.playing {
+  background: #191919;
+  color: #ffffff;
+}
+
+.control-button.secondary {
+  background: #f5f5f5;
+  color: #191919;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.control-button.playback {
+  background: #4caf50;
+  color: #ffffff;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 0.95rem;
+}
+
+.control-button.playback:hover {
+  background: #388e3c;
+}
+
+.control-button.delete {
+  background: #ff5252;
+  color: #ffffff;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 0.95rem;
+}
+
+.control-button.delete:hover {
+  background: #d32f2f;
 }
 
 .record-button {
@@ -108,22 +211,100 @@
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  border: 1px solid #eaeaea;
+  border: 2px solid #eaeaea;
   border-radius: 50%;
   cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.record-button:hover {
+  border-color: #191919;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.record-button.recording {
+  background: #ff3b30;
+  border-color: #ff3b30;
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
 .record-dot {
   width: 22px;
   height: 22px;
   background: #ff3b30;
-  border: 2px solid #ffffff;
   border-radius: 50%;
   box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.record-button.recording .record-dot {
+  background: #ffffff;
+  animation: recordPulse 1s ease-in-out infinite;
+}
+
+.recording-time {
+  position: absolute;
+  bottom: -24px;
+  font-size: 0.75rem;
+  color: #191919;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 59, 48, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+  }
+}
+
+@keyframes recordPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 600px) {
   .script-card {
     padding: 0.9rem;
+  }
+
+  .control-button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+
+  .control-button.secondary {
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 0.9rem;
+  }
+
+  .session-action-bar {
+    gap: 0.5rem;
+  }
+
+  .play-mode-toggle {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .toggle-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
   }
 }

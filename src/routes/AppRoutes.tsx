@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import RootLayout from '../components/layout/RootLayout';
 import History from '../pages/History';
 import Home from '../pages/Home';
+import OPic from '../pages/OPic';
+import OPicLesson from '../pages/OPicLesson';
 import PracticeSetup from '../pages/PracticeSetup';
 import PracticeSession from '../pages/PracticeSession';
 import Result from '../pages/Result';
@@ -14,6 +16,8 @@ const AppRoutes = () => (
       <Route path="history" element={<History />} />
       <Route path="session" element={<PracticeSession />} />
       <Route path="result" element={<Result />} />
+      <Route path="opic" element={<OPic />} />
+      <Route path="opic/lesson/:dayId" element={<OPicLesson />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   </Routes>

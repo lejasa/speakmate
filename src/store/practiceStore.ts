@@ -7,6 +7,13 @@ export interface ScriptLine {
   korean: string;
 }
 
+export interface RecordingData {
+  lineId: number;
+  audioURL: string;
+  duration: number;
+  timestamp: number;
+}
+
 interface PracticeState {
   mode: string;
   topic: string;
@@ -17,6 +24,7 @@ interface PracticeState {
   difficulty: string;
 
   script: ScriptLine[];
+  recordings: RecordingData[];
 
   setPractice: (data: {
     mode: string;
@@ -29,9 +37,12 @@ interface PracticeState {
   }) => void;
 
   setScript: (script: ScriptLine[]) => void;
+  addRecording: (recording: RecordingData) => void;
+  removeRecording: (lineId: number) => void;
+  getRecording: (lineId: number) => RecordingData | undefined;
 }
 
-export const usePracticeStore = create<PracticeState>((set) => ({
+export const usePracticeStore = create<PracticeState>((set, get) => ({
   mode: '',
   topic: '',
   place: '',
@@ -41,6 +52,7 @@ export const usePracticeStore = create<PracticeState>((set) => ({
   difficulty: '',
 
   script: [],
+  recordings: [],
 
   setPractice: (data) =>
     set({
@@ -57,4 +69,25 @@ export const usePracticeStore = create<PracticeState>((set) => ({
     set({
       script,
     }),
+
+  addRecording: (recording) =>
+    set((state) => {
+      // 같은 lineId의 기존 녹음 제거
+      const filteredRecordings = state.recordings.filter(
+        (r) => r.lineId !== recording.lineId
+      );
+      return {
+        recordings: [...filteredRecordings, recording],
+      };
+    }),
+
+  removeRecording: (lineId) =>
+    set((state) => ({
+      recordings: state.recordings.filter((r) => r.lineId !== lineId),
+    })),
+
+  getRecording: (lineId) => {
+    const state = get();
+    return state.recordings.find((r) => r.lineId === lineId);
+  },
 }));
