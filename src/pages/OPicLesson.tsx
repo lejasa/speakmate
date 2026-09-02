@@ -27,6 +27,8 @@ export default function OPicLesson() {
       const [dayNum, lessonNum] = dayId.split('-').map(Number);
       setCurrentDayIndex(dayNum - 1);
       setCurrentLessonIndex(lessonNum - 1);
+      // Route changes can preserve the previous scroll position in an SPA.
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     }
   }, [dayId]);
 
