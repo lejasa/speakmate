@@ -20,13 +20,6 @@ export default function Home() {
             >
               START
             </button>
-            <button
-              type="button"
-              className="button button-secondary"
-              onClick={() => navigate('/opic')}
-            >
-              OPIc AL Course
-            </button>
           </div>
         </div>
 
