@@ -120,7 +120,6 @@ export default function OPicLesson() {
         duration: recorder.duration,
         timestamp: Date.now(),
       });
-    }
       setPendingRecordingSentenceId(null);
     }
   }, [recorder.isRecording, recorder.audioURL, pendingRecordingSentenceId, addRecording]);
