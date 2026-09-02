@@ -16,6 +16,7 @@ export default function PracticeSession() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [playMode, setPlayMode] = useState<'ai' | 'user'>('ai'); // ai = 원어민 음성, user = 내 목소리
+  const [pendingRecordingLineId, setPendingRecordingLineId] = useState<number | null>(null);
 
   const recorder = useAudioRecorder();
   const tts = useSpeechSynthesis();
@@ -83,6 +84,8 @@ export default function PracticeSession() {
     if (recorder.isRecording) {
       recorder.stopRecording();
     } else {
+      // Keep the target line until MediaRecorder finishes creating the audio URL.
+      setPendingRecordingLineId(selectedLine.id);
       recorder.clearRecording();
       recorder.startRecording();
     }
@@ -93,17 +96,18 @@ export default function PracticeSession() {
     if (
       !recorder.isRecording &&
       recorder.audioURL &&
-      selectedLine &&
-      !currentRecording
+      pendingRecordingLineId !== null
     ) {
       addRecording({
-        lineId: selectedLine.id,
+        lineId: pendingRecordingLineId,
         audioURL: recorder.audioURL,
         duration: recorder.duration,
         timestamp: Date.now(),
       });
     }
-  }, [recorder.isRecording, recorder.audioURL, selectedLine, currentRecording, addRecording]);
+      setPendingRecordingLineId(null);
+    }
+  }, [recorder.isRecording, recorder.audioURL, pendingRecordingLineId, addRecording]);
 
   if (!script || script.length === 0) {
     return (
