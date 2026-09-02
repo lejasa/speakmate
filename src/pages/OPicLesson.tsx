@@ -14,6 +14,7 @@ export default function OPicLesson() {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [scriptMode, setScriptMode] = useState<'explanation' | 'script' | 'full-view'>('explanation');
   const [selectedSentenceId, setSelectedSentenceId] = useState<number | null>(null);
+  const [pendingRecordingSentenceId, setPendingRecordingSentenceId] = useState<number | null>(null);
 
   const recorder = useAudioRecorder();
   const tts = useSpeechSynthesis();
@@ -94,16 +95,16 @@ export default function OPicLesson() {
 
   // 문장 녹음
   const handleRecordSentence = (sentenceId: number) => {
-    if (selectedSentenceId !== sentenceId) {
-      recorder.clearRecording();
-      setSelectedSentenceId(sentenceId);
-    }
-
     if (recorder.isRecording) {
       recorder.stopRecording();
-    } else {
-      recorder.startRecording();
+      return;
     }
+
+    // Remember the target before async recording setup completes.
+    setSelectedSentenceId(sentenceId);
+    setPendingRecordingSentenceId(sentenceId);
+    recorder.clearRecording();
+    recorder.startRecording();
   };
 
   // 녹음 저장
@@ -111,17 +112,18 @@ export default function OPicLesson() {
     if (
       !recorder.isRecording &&
       recorder.audioURL &&
-      selectedSentenceId &&
-      !currentRecording
+      pendingRecordingSentenceId !== null
     ) {
       addRecording({
-        lineId: selectedSentenceId,
+        lineId: pendingRecordingSentenceId,
         audioURL: recorder.audioURL,
         duration: recorder.duration,
         timestamp: Date.now(),
       });
     }
-  }, [recorder.isRecording, recorder.audioURL, selectedSentenceId, currentRecording, addRecording]);
+      setPendingRecordingSentenceId(null);
+    }
+  }, [recorder.isRecording, recorder.audioURL, pendingRecordingSentenceId, addRecording]);
 
   const handleNextLesson = () => {
     if (currentLessonIndex < currentDay.lessons.length - 1) {
