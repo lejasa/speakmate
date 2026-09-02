@@ -460,5 +460,65 @@ export const DAY2_LESSONS: DayLesson = {
   ],
 };
 
-// 추후 DAY 3-7은 별도로 추가할 예정
-export const ALL_LESSONS = [DAY1_LESSONS, DAY2_LESSONS];
+
+// DAY 3-7 - topic practice for the rest of the intensive course
+const createTopicLesson = (
+  day: number,
+  title: string,
+  question: string,
+  goal: string[],
+  strategy: string[],
+  expressions: CoreExpression[],
+  keywords: string[],
+  sentences: Array<{ english: string; korean: string }>
+): LessonContent => ({
+  id: `day${day}-1`,
+  day,
+  title,
+  goal,
+  context: `DAY ${day} OPIc 핵심 주제를 자연스럽게 확장해 답하는 연습입니다.`,
+  strategy,
+  completedScript: {
+    id: `script-day${day}-1`,
+    title: question,
+    sentences: sentences.map((sentence, index) => ({
+      id: day * 100 + index + 1,
+      ...sentence,
+    })),
+  },
+  coreExpressions: expressions,
+  keywords: keywords.map((text) => ({ text })),
+});
+
+export const DAY3_LESSONS: DayLesson = {
+  dayNumber: 3,
+  theme: 'Home + Neighborhood',
+  lessons: [createTopicLesson(3, 'My Home and Neighborhood', 'Tell me about your home and neighborhood.', ['집과 동네를 구체적으로 묘사하기', '일상적인 장점을 덧붙이기'], ['집의 분위기 소개하기', '주변 장소와 이동 편의성 말하기', '개인적인 만족으로 마무리하기'], [{ expression: 'What I like most is...', meaning: '제가 가장 좋아하는 점은...' }, { expression: 'within walking distance', meaning: '걸어서 갈 수 있는 거리 안에' }], ['cozy', 'family', 'nearby park', 'cafes', 'convenient'], [{ english: 'I live in a cozy apartment with my family.', korean: '저는 가족과 함께 아늑한 아파트에 살고 있습니다.' }, { english: 'What I like most is that there is a park within walking distance.', korean: '제가 가장 좋아하는 점은 걸어서 갈 수 있는 거리에 공원이 있다는 것입니다.' }, { english: 'There are also several cafes and stores nearby, so it is very convenient.', korean: '근처에는 카페와 가게도 여러 곳 있어서 매우 편리합니다.' }, { english: 'It is a comfortable place where I can relax after a busy day.', korean: '바쁜 하루 뒤에 편하게 쉴 수 있는 곳입니다.' }])],
+};
+
+export const DAY4_LESSONS: DayLesson = {
+  dayNumber: 4,
+  theme: 'Travel + Vacation',
+  lessons: [createTopicLesson(4, 'A Memorable Trip', 'Tell me about a memorable trip you took.', ['과거 여행을 순서대로 설명하기', '감정과 인상적인 순간 표현하기'], ['여행지와 동행 소개하기', '기억에 남는 활동 말하기', '느낀 점으로 마무리하기'], [{ expression: 'One trip that stands out is...', meaning: '특히 기억에 남는 여행은...' }, { expression: 'I was impressed by...', meaning: '~에 깊은 인상을 받았다' }], ['weekend trip', 'scenery', 'local food', 'relaxed', 'memorable'], [{ english: 'One trip that stands out is a weekend trip I took with my family.', korean: '특히 기억에 남는 여행은 가족과 함께 갔던 주말 여행입니다.' }, { english: 'We enjoyed the scenery, tried local food, and took lots of pictures.', korean: '우리는 풍경을 즐기고 지역 음식을 먹으며 사진을 많이 찍었습니다.' }, { english: 'I was impressed by how relaxed and peaceful the whole trip felt.', korean: '여행 내내 느껴졌던 편안하고 평화로운 분위기가 인상적이었습니다.' }, { english: 'Even now, it makes me smile when I look at the photos.', korean: '지금도 그 사진을 보면 미소가 납니다.' }])],
+};
+
+export const DAY5_LESSONS: DayLesson = {
+  dayNumber: 5,
+  theme: 'Food + Restaurants',
+  lessons: [createTopicLesson(5, 'A Favorite Restaurant', 'Tell me about a restaurant you enjoy visiting.', ['음식점의 분위기와 메뉴 묘사하기', '추천 이유를 구체화하기'], ['어디에 있는지 소개하기', '좋아하는 메뉴 말하기', '방문 상황과 감정 덧붙이기'], [{ expression: 'I tend to go there when...', meaning: '저는 보통 ~할 때 그곳에 간다' }, { expression: 'The best part is...', meaning: '가장 좋은 점은...' }], ['casual restaurant', 'signature dish', 'friendly staff', 'comfortable', 'recommend'], [{ english: 'There is a casual restaurant near my home that I enjoy visiting.', korean: '집 근처에 제가 즐겨 가는 편안한 분위기의 식당이 있습니다.' }, { english: 'I tend to go there when I want a good meal without too much planning.', korean: '많은 계획 없이 맛있는 식사를 하고 싶을 때 주로 그곳에 갑니다.' }, { english: 'The best part is their signature dish and the friendly staff.', korean: '가장 좋은 점은 대표 메뉴와 친절한 직원들입니다.' }, { english: 'I would recommend it to anyone who wants a comfortable meal.', korean: '편안한 식사를 원하는 사람에게 추천하고 싶습니다.' }])],
+};
+
+export const DAY6_LESSONS: DayLesson = {
+  dayNumber: 6,
+  theme: 'Unexpected Situation + Problem Solving',
+  lessons: [createTopicLesson(6, 'An Unexpected Problem', 'Tell me about an unexpected problem you solved.', ['문제 상황을 명확히 설명하기', '해결 과정과 결과 말하기'], ['예상치 못한 일 소개하기', '취한 행동 설명하기', '배운 점으로 마무리하기'], [{ expression: 'Out of nowhere...', meaning: '갑자기, 예상치 못하게' }, { expression: 'It worked out in the end.', meaning: '결국 잘 해결되었다' }], ['unexpected', 'stay calm', 'ask for help', 'solution', 'relieved'], [{ english: 'One day, I had an unexpected problem while I was on my way to an appointment.', korean: '어느 날 약속 장소로 가는 길에 예상치 못한 문제가 생겼습니다.' }, { english: 'Out of nowhere, I realized that I had gone to the wrong place.', korean: '갑자기 제가 잘못된 장소에 왔다는 것을 알게 되었습니다.' }, { english: 'I stayed calm, asked for help, and found the right route on my phone.', korean: '침착하게 도움을 요청하고 휴대폰으로 올바른 경로를 찾았습니다.' }, { english: 'It worked out in the end, and I felt relieved after solving it.', korean: '결국 잘 해결되었고, 문제를 해결한 뒤 안도감을 느꼈습니다.' }])],
+};
+
+export const DAY7_LESSONS: DayLesson = {
+  dayNumber: 7,
+  theme: 'AL Mock Test + Review',
+  lessons: [createTopicLesson(7, 'AL Level Story Practice', 'Describe a recent experience that changed your perspective.', ['AL 수준의 서사형 답변 구성하기', '상황·변화·느낀 점을 연결하기'], ['배경 설명하기', '변화나 사건 전개하기', '구체적 감정과 통찰로 마무리하기'], [{ expression: 'Looking back, ...', meaning: '돌이켜보면...' }, { expression: 'It made me realize that...', meaning: '그 일을 통해 ~을 깨달았다' }], ['recent experience', 'challenge', 'perspective', 'confidence', 'reflection'], [{ english: 'Recently, I had an experience that made me look at my daily routine differently.', korean: '최근에 일상을 다르게 바라보게 한 경험이 있었습니다.' }, { english: 'At first, it felt like a small challenge, but it pushed me out of my comfort zone.', korean: '처음에는 작은 도전처럼 느껴졌지만 저를 익숙한 영역 밖으로 이끌었습니다.' }, { english: 'After trying it several times, I became more confident and open to new experiences.', korean: '여러 번 시도한 뒤 더 자신감이 생겼고 새로운 경험에 열린 마음을 갖게 되었습니다.' }, { english: 'Looking back, it made me realize that small changes can lead to real growth.', korean: '돌이켜보면 작은 변화가 진짜 성장으로 이어질 수 있다는 것을 깨달았습니다.' }])],
+};
+
+export const ALL_LESSONS = [DAY1_LESSONS, DAY2_LESSONS, DAY3_LESSONS, DAY4_LESSONS, DAY5_LESSONS, DAY6_LESSONS, DAY7_LESSONS];
+
