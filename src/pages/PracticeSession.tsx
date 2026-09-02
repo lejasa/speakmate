@@ -104,7 +104,6 @@ export default function PracticeSession() {
         duration: recorder.duration,
         timestamp: Date.now(),
       });
-    }
       setPendingRecordingLineId(null);
     }
   }, [recorder.isRecording, recorder.audioURL, pendingRecordingLineId, addRecording]);
