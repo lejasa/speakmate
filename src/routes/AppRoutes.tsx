@@ -4,6 +4,7 @@ import History from '../pages/History';
 import Home from '../pages/Home';
 import OPic from '../pages/OPic';
 import OPicLesson from '../pages/OPicLesson';
+import OPicListening from '../pages/OPicListening';
 import PracticeSetup from '../pages/PracticeSetup';
 import PracticeSession from '../pages/PracticeSession';
 import Result from '../pages/Result';
@@ -17,6 +18,7 @@ const AppRoutes = () => (
       <Route path="session" element={<PracticeSession />} />
       <Route path="result" element={<Result />} />
       <Route path="opic" element={<OPic />} />
+      <Route path="opic/listening" element={<OPicListening />} />
       <Route path="opic/lesson/:dayId" element={<OPicLesson />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
