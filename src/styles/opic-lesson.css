@@ -749,3 +749,47 @@
     padding-bottom: 0;
   }
 }
+
+
+/* 스크립트 듣기 설정 */
+.speech-settings {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #f8f9fa;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+}
+
+.speech-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #4b4b5a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.speech-settings select {
+  min-height: 2.35rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #d7d7e0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #191919;
+  font-size: 0.9rem;
+}
+
+.speech-settings-hint {
+  align-self: center;
+  color: #787878;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .speech-settings { align-items: stretch; }
+  .speech-settings label, .speech-settings select { width: 100%; }
+  .speech-settings-hint { align-self: flex-start; }
+}
