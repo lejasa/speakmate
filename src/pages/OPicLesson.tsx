@@ -295,7 +295,7 @@ export default function OPicLesson() {
                   onClick={handlePlayAllScript}
                   title="전체 스크립트 재생"
                 >
-                  {tts.isPlaying ? '⏸ 중지' : 'ALL'}
+                  {tts.isPlaying ? '⏸ STOP' : '▶ ALL'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('full-view')}>
                   View ALL
@@ -390,7 +390,7 @@ export default function OPicLesson() {
                   className={`play-all-btn ${tts.isPlaying ? 'playing' : ''}`}
                   onClick={handlePlayAllScript}
                 >
-                  {tts.isPlaying ? '⏸ 중지' : '▶ ALL'}
+                  {tts.isPlaying ? '⏸ STOP' : '▶ ALL'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('script')}>
                   View Line
