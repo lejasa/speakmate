@@ -839,3 +839,7 @@
   .script-top-controls > * { flex: 1 1 45%; }
   .script-header, .full-view-header { gap: 1rem; }
 }
+
+
+.translate-btn.active { color: #4c5fc3; border-color: #667eea; background: #eef0ff; }
+.translate-btn.off { color: #8a8a93; border-color: #c7c7cf; background: #f1f1f3; }
