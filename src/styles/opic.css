@@ -282,3 +282,44 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* 질문 듣기 전용 모드 */
+.listening-practice-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  margin-top: 1.25rem;
+  text-align: center;
+  background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+  border: 1px solid #d9d6fe;
+  border-radius: 16px;
+}
+
+.listening-lock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #42425a;
+}
+
+.listening-lock-icon { font-size: 2rem; }
+.listening-lock strong { font-size: 1.05rem; }
+.listening-lock span:last-child { color: #6b6b80; font-size: 0.9rem; }
+.listening-keywords, .listening-feedback { color: #6b6b80; font-size: 0.9rem; }
+.listening-step { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #ececf4; }
+.listening-step h3, .listening-reveal h3 { margin: 0 0 0.9rem; color: #24243a; }
+.listening-reveal { margin-top: 1.25rem; padding: 1.25rem; background: #fafafa; border-radius: 12px; }
+.listening-reveal.revealed { border-left: 4px solid #667eea; }
+.revealed-english { font-size: 1.15rem; line-height: 1.6; font-weight: 600; color: #29294c; }
+.core-story { background: linear-gradient(135deg, #fff7ed, #fffbeb); border-left: 4px solid #f59e0b; }
+.core-story strong { display: block; font-size: 1.25rem; color: #92400e; margin-bottom: 0.5rem; }
+.story-connection { margin: 0; color: #57534e; }
+.listening-navigation { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+@media (max-width: 600px) {
+  .listening-practice-card { padding: 1.25rem 1rem; }
+  .listening-navigation { flex-direction: column; }
+  .listening-navigation .nav-btn { width: 100%; }
+}
