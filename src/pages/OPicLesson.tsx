@@ -65,13 +65,6 @@ export default function OPicLesson() {
     );
   }
 
-  const selectedSentence = currentLesson.completedScript.sentences.find(
-    (s) => s.id === selectedSentenceId
-  );
-  const currentRecording = selectedSentenceId
-    ? getRecording(selectedSentenceId)
-    : null;
-
   // 전체 스크립트 텍스트
   const fullScriptEnglish = currentLesson.completedScript.sentences
     .map((s) => s.english)
