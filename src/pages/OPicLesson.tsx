@@ -301,7 +301,7 @@ export default function OPicLesson() {
                   📖 전체 보기
                 </button>
                 <button className="script-view-btn" onClick={() => setShowTranslations((value) => !value)}>
-                  {showTranslations ? '해석 숨기기' : '해석 보기'}
+                  {showTranslations ? '해석 O' : '해석 X'}
                 </button>
               </div>
             </div>
