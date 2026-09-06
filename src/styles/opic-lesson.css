@@ -319,7 +319,7 @@
   position: relative;
   display: flex;
   gap: 1rem;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .sentence-card:hover {
@@ -437,16 +437,18 @@
 }
 
 /* 녹음 상태 표시 */
-.recording-badge {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  padding: 0.35rem 0.75rem;
-  background: #4caf50;
-  color: #ffffff;
-  border-radius: 12px;
-  font-size: 0.8rem;
+.recording-playback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.recording-duration {
+  color: #4caf50;
+  font-size: 0.75rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .recording-timer {
@@ -551,6 +553,7 @@
 
   .sentence-card {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .sentence-controls {
@@ -564,7 +567,7 @@
     font-size: 1rem;
   }
 
-  .recording-badge,
+  .recording-duration,
   .recording-timer {
     position: static;
     margin-top: 0.75rem;
