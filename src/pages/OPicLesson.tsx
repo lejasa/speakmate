@@ -198,6 +198,11 @@ export default function OPicLesson() {
                 <option value={3}>3회</option>
                 <option value={4}>4회</option>
                 <option value={5}>5회</option>
+                <option value={6}>6회</option>
+                <option value={7}>7회</option>
+                <option value={8}>8회</option>
+                <option value={9}>9회</option>
+                <option value={10}>10회</option>
               </select>
             </label>
             <span className="speech-settings-hint">재생을 누르면 선택한 속도와 횟수가 적용됩니다.</span>
@@ -293,7 +298,7 @@ export default function OPicLesson() {
                   View ALL
                 </button>
                 <button className={`script-view-btn translate-btn ${showTranslations ? 'active' : 'off'}`} onClick={() => setShowTranslations((value) => !value)}>
-                  {showTranslations ? 'Translate' : 'Translate X'}
+                  {'Translate'}
                 </button>
               </div>
             </div>
@@ -342,26 +347,22 @@ export default function OPicLesson() {
                         {recorder.isRecording && isSelected ? '⏹' : '🎙️'}
                       </button>
                       {sentenceRecording && (
-                        <button
-                          className="control-btn playback-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const audio = new Audio(sentenceRecording.audioURL);
-                            void audio.play();
-                          }}
-                          title="녹음 재생"
-                        >
-                          ▶
-                        </button>
+                        <div className="recording-playback">
+                          <button
+                            className="control-btn playback-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const audio = new Audio(sentenceRecording.audioURL);
+                              void audio.play();
+                            }}
+                            title="녹음 재생"
+                          >
+                            ▶
+                          </button>
+                          <span className="recording-duration">✓ {sentenceRecording.duration}s</span>
+                        </div>
                       )}
                     </div>
-
-                    {/* 녹음 상태 표시 */}
-                    {sentenceRecording && (
-                      <div className="recording-badge">
-                        ✓ {sentenceRecording.duration}s
-                      </div>
-                    )}
 
                     {recorder.isRecording && isSelected && (
                       <div className="recording-timer">
@@ -392,7 +393,7 @@ export default function OPicLesson() {
                   🎙️ 문장 보기
                 </button>
                 <button className={`script-view-btn translate-btn ${showTranslations ? 'active' : 'off'}`} onClick={() => setShowTranslations((value) => !value)}>
-                  {showTranslations ? 'Translate' : 'Translate X'}
+                  {'Translate'}
                 </button>
               </div>
             </div>
