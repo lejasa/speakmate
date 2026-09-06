@@ -386,7 +386,7 @@ export default function OPicLesson() {
                   className={`play-all-btn ${tts.isPlaying ? 'playing' : ''}`}
                   onClick={handlePlayAllScript}
                 >
-                  {tts.isPlaying ? '⏸ 중지' : '▶ 전체 재생'}
+                  {tts.isPlaying ? '⏸ 중지' : 'ALL'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('script')}>
                   🎙️ 문장 보기
