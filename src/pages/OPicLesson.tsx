@@ -390,7 +390,7 @@ export default function OPicLesson() {
                   {tts.isPlaying ? '⏸ 중지' : 'ALL'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('script')}>
-                  🎙️ 문장 보기
+                  View Line
                 </button>
                 <button className={`script-view-btn translate-btn ${showTranslations ? 'active' : 'off'}`} onClick={() => setShowTranslations((value) => !value)}>
                   {'Translate'}
