@@ -15,6 +15,8 @@ export default function OPicLesson() {
   const [scriptMode, setScriptMode] = useState<'explanation' | 'script' | 'full-view'>('explanation');
   const [selectedSentenceId, setSelectedSentenceId] = useState<number | null>(null);
   const [pendingRecordingSentenceId, setPendingRecordingSentenceId] = useState<number | null>(null);
+  const [speechRate, setSpeechRate] = useState(0.92);
+  const [speechRepeat, setSpeechRepeat] = useState(1);
 
   const recorder = useAudioRecorder();
   const tts = useSpeechSynthesis();
@@ -80,7 +82,7 @@ export default function OPicLesson() {
       (s) => s.id === sentenceId
     );
     if (sentence && !tts.isPlaying) {
-      tts.speak(sentence.english);
+      tts.speak(sentence.english, { rate: speechRate, repeat: speechRepeat });
     } else if (tts.isPlaying) {
       tts.stop();
     }
@@ -91,7 +93,7 @@ export default function OPicLesson() {
     if (tts.isPlaying) {
       tts.stop();
     } else {
-      tts.speak(fullScriptEnglish);
+      tts.speak(fullScriptEnglish, { rate: speechRate, repeat: speechRepeat });
     }
   };
 
@@ -185,6 +187,33 @@ export default function OPicLesson() {
             📖 전체 보기
           </button>
         </div>
+
+        {scriptMode !== 'explanation' && (
+          <div className="speech-settings" aria-label="스크립트 듣기 설정">
+            <label>
+              듣기 속도
+              <select value={speechRate} onChange={(event) => setSpeechRate(Number(event.target.value))}>
+                <option value={0.65}>0.65x 매우 느리게</option>
+                <option value={0.8}>0.8x 느리게</option>
+                <option value={0.92}>0.92x 자연스럽게</option>
+                <option value={1}>1.0x 보통</option>
+                <option value={1.15}>1.15x 빠르게</option>
+                <option value={1.25}>1.25x 매우 빠르게</option>
+              </select>
+            </label>
+            <label>
+              반복 횟수
+              <select value={speechRepeat} onChange={(event) => setSpeechRepeat(Number(event.target.value))}>
+                <option value={1}>1회</option>
+                <option value={2}>2회</option>
+                <option value={3}>3회</option>
+                <option value={4}>4회</option>
+                <option value={5}>5회</option>
+              </select>
+            </label>
+            <span className="speech-settings-hint">재생을 누르면 선택한 속도와 횟수가 적용됩니다.</span>
+          </div>
+        )}
 
         {/* 학습 모드 */}
         {scriptMode === 'explanation' && (
