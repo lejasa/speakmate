@@ -54,7 +54,7 @@ const QUESTIONS: ListeningQuestion[] = [
 export default function OPicListening() {
   const navigate = useNavigate();
   const tts = useSpeechSynthesis();
-  const [questionIndex, setQuestionIndex] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(() => Math.floor(Math.random() * QUESTIONS.length));
   const [listened, setListened] = useState(false);
   const [selectedType, setSelectedType] = useState<QuestionType | ''>('');
   const [selectedTopic, setSelectedTopic] = useState('');
@@ -62,9 +62,10 @@ export default function OPicListening() {
 
   const question = useMemo(() => QUESTIONS[questionIndex], [questionIndex]);
 
-  const resetQuestion = (nextIndex: number) => {
+  const resetQuestion = (nextIndex?: number) => {
     tts.stop();
-    setQuestionIndex(nextIndex);
+    const fallbackIndex = Math.floor(Math.random() * QUESTIONS.length);
+    setQuestionIndex(nextIndex ?? fallbackIndex);
     setListened(false);
     setSelectedType('');
     setSelectedTopic('');
@@ -173,7 +174,7 @@ export default function OPicListening() {
 
         <div className="listening-navigation">
           <button type="button" className="nav-btn" disabled={questionIndex === 0} onClick={() => resetQuestion(questionIndex - 1)}>← 이전 질문</button>
-          <button type="button" className="nav-btn next-btn" onClick={() => resetQuestion((questionIndex + 1) % QUESTIONS.length)}>다음 질문 →</button>
+          <button type="button" className="nav-btn next-btn" onClick={() => resetQuestion()}>다음 질문 →</button>
         </div>
       </section>
 
