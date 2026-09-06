@@ -60,7 +60,7 @@ export const useSpeechSynthesis = () => {
       return;
     }
 
-    const rate = Math.min(1.25, Math.max(0.65, options.rate ?? 0.92));
+    const rate = Math.min(2, Math.max(0.65, options.rate ?? 0.92));
     const repeatCount = Math.min(10, Math.max(1, Math.round(options.repeat ?? 1)));
     let completed = 0;
     const voice = getNaturalEnglishVoice(
