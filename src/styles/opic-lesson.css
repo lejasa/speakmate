@@ -793,3 +793,49 @@
   .speech-settings label, .speech-settings select { width: 100%; }
   .speech-settings-hint { align-self: flex-start; }
 }
+
+
+/* 상단 통합 스크립트 컨트롤 */
+.script-top-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.script-record-btn,
+.script-view-btn {
+  min-height: 2.5rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #667eea;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #4c5fc3;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.script-record-btn.recording { background: #ff3b30; border-color: #ff3b30; color: #ffffff; }
+.script-view-btn:hover, .script-record-btn:hover { background: #eef0ff; }
+
+.full-script-plain { max-height: none; }
+.full-script-english {
+  white-space: pre-line;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: #191919;
+}
+.full-script-translations {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #cfcfe0;
+  color: #787878;
+  line-height: 1.7;
+}
+.full-script-translations p { margin: 0 0 0.5rem; }
+
+@media (max-width: 700px) {
+  .script-top-controls { width: 100%; justify-content: stretch; }
+  .script-top-controls > * { flex: 1 1 45%; }
+  .script-header, .full-view-header { gap: 1rem; }
+}
