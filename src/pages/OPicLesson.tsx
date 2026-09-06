@@ -106,11 +106,6 @@ export default function OPicLesson() {
     recorder.startRecording();
   };
 
-  const handleRecordSelected = () => {
-    const targetId = selectedSentenceId ?? currentLesson.completedScript.sentences[0]?.id;
-    if (targetId !== undefined) handleRecordSentence(targetId);
-  };
-
   // 녹음 저장
   useEffect(() => {
     if (
@@ -292,7 +287,7 @@ export default function OPicLesson() {
                   onClick={handlePlayAllScript}
                   title="전체 스크립트 재생"
                 >
-                  {tts.isPlaying ? '⏸ 중지' : '▶ 전체 재생'}
+                  {tts.isPlaying ? '⏸ 중지' : 'ALL'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('full-view')}>
                   View ALL
@@ -396,8 +391,8 @@ export default function OPicLesson() {
                 <button className="script-view-btn" onClick={() => setScriptMode('script')}>
                   🎙️ 문장 보기
                 </button>
-                <button className="script-view-btn" onClick={() => setShowTranslations((value) => !value)}>
-                  {showTranslations ? '해석 숨기기' : '해석 보기'}
+                <button className={`script-view-btn translate-btn ${showTranslations ? 'active' : 'off'}`} onClick={() => setShowTranslations((value) => !value)}>
+                  {showTranslations ? 'Translate' : 'Translate X'}
                 </button>
               </div>
             </div>
