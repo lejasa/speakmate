@@ -182,12 +182,15 @@ export default function OPicLesson() {
             <label>
               듣기 속도
               <select value={speechRate} onChange={(event) => setSpeechRate(Number(event.target.value))}>
-                <option value={0.65}>0.65x 매우 느리게</option>
-                <option value={0.8}>0.8x 느리게</option>
-                <option value={0.92}>0.92x 자연스럽게</option>
-                <option value={1}>1.0x 보통</option>
-                <option value={1.15}>1.15x 빠르게</option>
-                <option value={1.25}>1.25x 매우 빠르게</option>
+                <option value={0.65}>0.65x</option>
+                <option value={0.8}>0.8x</option>
+                <option value={0.92}>0.92x</option>
+                <option value={1}>1.0x</option>
+                <option value={1.15}>1.15x</option>
+                <option value={1.25}>1.25x</option>
+                <option value={1.5}>1.5x</option>
+                <option value={1.75}>1.75x</option>
+                <option value={2}>2.0x</option>
               </select>
             </label>
             <label>
