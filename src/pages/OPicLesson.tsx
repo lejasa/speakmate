@@ -71,7 +71,17 @@ export default function OPicLesson() {
     .join(' ');
   const fullScriptDisplay = currentLesson.completedScript.sentences
     .map((s) => s.english)
-    .join('\\n');
+    .join('\n');
+
+  // 문장별 음성 재생
+  const handlePlaySentence = (sentenceId: number) => {
+    const sentence = currentLesson.completedScript.sentences.find((s) => s.id === sentenceId);
+    if (sentence && !tts.isPlaying) {
+      tts.speak(sentence.english, { rate: speechRate, repeat: speechRepeat });
+    } else if (tts.isPlaying) {
+      tts.stop();
+    }
+  };
 
   // 전체 스크립트 음성 재생
   const handlePlayAllScript = () => {
@@ -169,12 +179,6 @@ export default function OPicLesson() {
             onClick={() => setScriptMode('script')}
           >
             🎙️ 스크립트
-          </button>
-          <button
-            className={`tab-btn ${scriptMode === 'full-view' ? 'active' : ''}`}
-            onClick={() => setScriptMode('full-view')}
-          >
-            📖 전체 보기
           </button>
         </div>
 
@@ -290,18 +294,11 @@ export default function OPicLesson() {
                 >
                   {tts.isPlaying ? '⏸ 중지' : '▶ 전체 재생'}
                 </button>
-                <button
-                  className={`script-record-btn ${recorder.isRecording ? 'recording' : ''}`}
-                  onClick={handleRecordSelected}
-                  title="선택한 문장 녹음"
-                >
-                  {recorder.isRecording ? '⏹ 녹음 중지' : '🎙️ 선택 문장 녹음'}
-                </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('full-view')}>
-                  📖 전체 보기
+                  View ALL
                 </button>
-                <button className="script-view-btn" onClick={() => setShowTranslations((value) => !value)}>
-                  {showTranslations ? '해석 O' : '해석 X'}
+                <button className={`script-view-btn translate-btn ${showTranslations ? 'active' : 'off'}`} onClick={() => setShowTranslations((value) => !value)}>
+                  {showTranslations ? 'Translate' : 'Translate X'}
                 </button>
               </div>
             </div>
@@ -325,6 +322,43 @@ export default function OPicLesson() {
                     <div className="sentence-content">
                       <p className="sentence-english">{sentence.english}</p>
                       {showTranslations && <p className="sentence-korean">{sentence.korean}</p>}
+                    </div>
+
+                    {/* 콘트롤 버튼 */}
+                    <div className="sentence-controls">
+                      <button
+                        className={`control-btn play-btn ${tts.isPlaying && isSelected ? 'playing' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlaySentence(sentence.id);
+                        }}
+                        title="원어민 발음 듣기"
+                      >
+                        🔊
+                      </button>
+                      <button
+                        className={`control-btn record-btn ${recorder.isRecording && isSelected ? 'recording' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRecordSentence(sentence.id);
+                        }}
+                        title={recorder.isRecording && isSelected ? '녹음 중지' : '목소리 녹음'}
+                      >
+                        {recorder.isRecording && isSelected ? '⏹' : '🎙️'}
+                      </button>
+                      {sentenceRecording && (
+                        <button
+                          className="control-btn playback-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const audio = new Audio(sentenceRecording.audioURL);
+                            void audio.play();
+                          }}
+                          title="녹음 재생"
+                        >
+                          ▶
+                        </button>
+                      )}
                     </div>
 
                     {/* 녹음 상태 표시 */}
@@ -358,12 +392,6 @@ export default function OPicLesson() {
                   onClick={handlePlayAllScript}
                 >
                   {tts.isPlaying ? '⏸ 중지' : '▶ 전체 재생'}
-                </button>
-                <button
-                  className={`script-record-btn ${recorder.isRecording ? 'recording' : ''}`}
-                  onClick={handleRecordSelected}
-                >
-                  {recorder.isRecording ? '⏹ 녹음 중지' : '🎙️ 선택 문장 녹음'}
                 </button>
                 <button className="script-view-btn" onClick={() => setScriptMode('script')}>
                   🎙️ 문장 보기
